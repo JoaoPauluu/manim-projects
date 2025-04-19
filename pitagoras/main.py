@@ -20,13 +20,33 @@ class DefaultTemplate(Scene):
 
 class Intro(Scene):
     def construct(self):
-        pit = MathTex("h^2 = c_1^2 + c_2^2")
-        pit.to_edge(UP)
+        pit = MathTex("a^2", "+", "b^2", "=", "c^2")
+        pit[0].set_color(RED)
+        pit[2].set_color(BLUE)
+        pit[4].set_color(GREEN)
 
-        circle = Circle()
-        circle.set_fill(RED)
+        pit.scale(2)
+        #pit.shift(UP * 2)
 
-        self.play(Create(circle))
 
         self.play(Write(pit))
-        self.play(FadeOut(pit))
+        self.wait(1)
+        self.play(pit.animate.shift(UP * 4), run_time=1)
+
+        A = 2 * LEFT + 2 * UP
+        B = 2 * LEFT + 2 * DOWN
+        C = 2 * RIGHT + 2 * DOWN
+
+        triangle = Polygon(A, B, C)
+        self.add(triangle)
+
+        left_cat = triangle.family_members_with_points()[0]
+        #down_cat = triangle.submobjects[1]
+        #hipo = triangle.submobjects[2]
+        left_cat.set_color(RED)
+        #down_cat.set_color(BLUE)
+        #hipo.set_color(GREEN)
+
+        
+
+        self.play(Create(triangle))
